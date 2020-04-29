@@ -41,7 +41,8 @@ object Main {
                         Permission.MANAGE_ROLES),
 
 
-                CopyCommand())
+                CopyChannelCommand(),
+                EditMessageCommand())
 
         // start getting a bot account set up
         JDABuilder(token)
