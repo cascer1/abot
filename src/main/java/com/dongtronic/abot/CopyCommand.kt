@@ -52,7 +52,7 @@ class CopyCommand() : Command() {
         try {
             event.message.delete().reason("I'm a cool bot and I can delete messages 8)").complete()
         } catch (e: InsufficientPermissionException) {
-            event.replyError("Could not remove command message. Please grant me manage messages permission in ${channels[0].name}")
+            event.replyError("Could not remove command message. Please grant me manage messages permission in ${event.message.channel.name}")
         }
 
         val messages = channels[0].history.retrievePast(100).complete().reversed()
