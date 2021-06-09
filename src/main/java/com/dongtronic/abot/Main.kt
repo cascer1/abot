@@ -7,6 +7,10 @@ import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.OnlineStatus
 import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Activity
+import net.dv8tion.jda.api.requests.GatewayIntent
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.api.utils.cache.CacheFlag
+import java.util.*
 import javax.security.auth.login.LoginException
 
 object Main {
@@ -43,21 +47,16 @@ object Main {
 
                 CopyCommand())
 
-        // start getting a bot account set up
-        JDABuilder(token)
-                // set the game for when the bot is loading
-                .setStatus(OnlineStatus.DO_NOT_DISTURB)
-                .setActivity(Activity.of(Activity.ActivityType.DEFAULT, "Loading..."))
+        val builtClient = client.build()
 
-                // add the listeners
+        DefaultShardManagerBuilder.createDefault(token)
+                .setEnabledIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_MESSAGE_REACTIONS)
+                .disableCache(EnumSet.allOf(CacheFlag::class.java)) // We don't need any cached data
+                .setShardsTotal(1) // Let Discord decide how many shards we need
                 .addEventListeners(
                         waiter,
-                        client.build()
-                )
-                // start it up!
-                .build()
-
-
+                        builtClient
+                ).build()
     }
 
 }
