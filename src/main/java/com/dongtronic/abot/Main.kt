@@ -45,7 +45,8 @@ object Main {
                         Permission.MANAGE_ROLES),
 
 
-                CopyCommand())
+                CopyChannelCommand(),
+                EditMessageCommand())
 
         val builtClient = client.build()
 
