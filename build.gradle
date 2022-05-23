@@ -1,21 +1,25 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.51'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
 }
 
 group 'com.dongtronic'
-version '1.0.0'
+version '1.1.0'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     jcenter()
+    mavenCentral()
+    maven { url 'https://m2.dv8tion.net/releases' }
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     // JDA
-    compile 'com.jagrosh:jda-utilities:3.0.2'
-    compile('net.dv8tion:JDA:4.2.0_209') {
+    compile 'com.jagrosh:jda-utilities:3.0.4'
+    compile('net.dv8tion:JDA:4.3.0_339') {
         exclude module: 'opus-java'
     }
 
@@ -53,8 +57,8 @@ build.mustRunAfter clean
 fatJar.mustRunAfter build
 
 compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
